@@ -1,6 +1,6 @@
 ## 使用
 
-直接复制仓库代码到项目的公共组件components目录，再引入
+进入项目公共组件components目录，新增一个目录：vue-baidu-map，直接复制仓库代码到该目录，main.js引入
 
 ```js
 import Vue from 'vue'
@@ -27,13 +27,13 @@ Vue.use(BaiduMap, {
 <bm-info-window>
 ```
 
-只能说控制台不会报错，不影响系统本有功能，但是升级了webgl版本功能可能被去掉了，具体看下面的说明
+支持的意思是：控制台不会报错，不影响系统本有功能，但是有些功能会被去掉，具体看下面的说明
 
 ## 说明
 
-代码是依据vue-baidu-map基础上开发，没有fork，因为并不需要支持npm进入，如果需要帮忙支持或者解决报错问题，可以联系邮箱
+代码是依据vue-baidu-map基础上开发，没有fork，因为并不需要支持npm方式安装。如果需要帮忙支持或者解决报错问题，可以联系邮箱
 
-以下是变更的地方：
+变更说明：
 
 **base/mixins/common.js**: 改为常见的mixin文件写法
 
@@ -45,18 +45,18 @@ Vue.use(BaiduMap, {
 
 **controls/OverviewMap**: 判断了一下，webgl版本不支持这个组件，直接return，避免报错
 
-**controls/Scale**: 比例尺控件，就放默认位置挺好的，好看；判断了webgl版本直接跳过参数设置（如果非要设置偏移值和位置请参考controls/Control写法)
+**controls/Scale**: 比例尺控件，就放默认位置挺好的；判断了webgl版本直接跳过参数设置（如果非要设置偏移值和位置请参考controls/Control写法）
 
 **map/Map**： 
 
-1. center只能传对象形式(懒得判断类型)，经纬度支持传String类型的值，即{lat: Number|String, lng: Number|String }, 
-2. 简化了wacth写法， 设置deep为true
+1. center只能传对象形式（懒得判断类型），经纬度支持传String类型的值，即 { lat: Number|String, lng: Number|String }, 
+2. 简化了watch写法， 设置deep为true
 3. getMapScript方法，判断一下，不同参数不同的版本的百度地图底图
 
 **overlayers/InfoWindow**: 
 
 1. show参数改成支持双向绑定的value,
-2. offset判断一下，避免被createSize转成{ width: NaN, height: NaN }, 导致信息窗体永远在左上角
+2. offset判断一下，避免被createSize转成 { width: NaN, height: NaN }, 导致信息窗体永远在左上角
 3. 去掉了不常用的参数：enableMessage、message
 
 
